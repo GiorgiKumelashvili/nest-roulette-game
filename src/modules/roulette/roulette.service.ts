@@ -102,4 +102,16 @@ export class RouletteService {
     await this.rouletteRepository.updateBalance(gameSession);
     return this.rouletteRepository.getGameSession(userId);
   }
+
+  public async endSessions(userId: number) {
+    const gameSession = await this.rouletteRepository.getGameSession(userId);
+
+    if (gameSession) {
+      await this.rouletteRepository.endSessions(userId);
+    }
+  }
+
+  public getUserGameSession(userId: number): Promise<User> {
+    return this.rouletteRepository.getGameSession(userId);
+  }
 }

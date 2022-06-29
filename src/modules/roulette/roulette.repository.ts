@@ -28,4 +28,8 @@ export class RouletteRepository {
   updateBalance(gameSession: User): Promise<User> {
     return this.cacheManager.set(gameSession.userId.toString(), gameSession);
   }
+
+  endSessions(userId: number): Promise<any> {
+    return this.cacheManager.del(userId.toString());
+  }
 }
