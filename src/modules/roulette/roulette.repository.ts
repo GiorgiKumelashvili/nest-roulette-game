@@ -24,4 +24,8 @@ export class RouletteRepository {
   getGameSession(userId: number): Promise<User> {
     return this.cacheManager.get<User>(userId.toString());
   }
+
+  updateBalance(gameSession: User): Promise<User> {
+    return this.cacheManager.set(gameSession.userId.toString(), gameSession);
+  }
 }

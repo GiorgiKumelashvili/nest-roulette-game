@@ -14,6 +14,7 @@ import { Cache } from 'cache-manager';
 import { Request } from 'express';
 import { environment } from 'src/enviroment';
 import { CreateRequest } from 'src/models/dto/request/create.request';
+import { SpinRequest } from 'src/models/dto/request/spin/spin.request';
 import { RouletteService } from './roulette.service';
 
 @Controller()
@@ -41,8 +42,17 @@ export class RouletteController {
   }
 
   @Patch('spin')
-  spin() {
-    return 1;
+  async spin(@Body() spinRequest: SpinRequest) {
+    // check balance
+    const { amount } = await this.rouletteService.isBalanceChecked(spinRequest);
+
+    // determine outcome and update balance
+    const updatedGameSession = await this.rouletteService.updateBalance(
+      spinRequest,
+      amount,
+    );
+
+    return { message: 'updated balance: ' + updatedGameSession.balance };
   }
 
   @Delete('end')
