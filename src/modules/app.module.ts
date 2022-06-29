@@ -1,12 +1,14 @@
-import redisStore from 'cache-manager-redis-store';
+import * as redisStore from 'cache-manager-redis-store';
 import { JwtAuthGuard } from 'src/guards/auth.guard';
 import { RouletteModule } from './roulette/roulette.module';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { CacheModule, Module, ValidationPipe } from '@nestjs/common';
 import { JwtHelper } from 'src/commons/jwt-helper';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule,
     RouletteModule,
     CacheModule.register({
       store: redisStore,

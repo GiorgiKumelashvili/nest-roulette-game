@@ -12,7 +12,7 @@ type TempType = { gameMode: GameMode };
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private jwtHelper: JwtHelper) {}
+  constructor(private readonly jwtHelper: JwtHelper) {}
 
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest() as Request;
@@ -28,15 +28,7 @@ export class JwtAuthGuard implements CanActivate {
       return true;
     }
 
-    // if gamemode is normal
-    const authorizationHeader =
-      request.headers['authorization'] || request.headers['Authorization'];
-
-    if (!authorizationHeader) {
-      throw new BadRequestException('missing authorization headers');
-    }
-
-    const secretToken = authorizationHeader.slice('Bearer '.length).toString();
+    const secretToken = this.jwtHelper.getToken(request);
 
     return this.jwtHelper.validateSecretToken(secretToken);
   }

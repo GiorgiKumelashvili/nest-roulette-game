@@ -1,3 +1,3 @@
 export interface TokenPayload {
-  balance: number;
+  balance?: number;
 }
