@@ -1,0 +1,5 @@
+export enum ExceptionMessageCode {
+  MISSING_TOKEN = 'MISSING_TOKEN',
+  EXPIRED_TOKEN = 'EXPIRED_TOKEN',
+  INVALID_TOKEN = 'INVALID_TOKEN',
+}
