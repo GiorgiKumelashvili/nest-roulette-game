@@ -1,3 +1,3 @@
-export interface SpinResponse {
+export class SpinResponse {
   message: string;
 }

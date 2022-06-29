@@ -14,7 +14,7 @@ type TempType = { gameMode: GameMode };
 export class JwtAuthGuard implements CanActivate {
   constructor(private readonly jwtHelper: JwtHelper) {}
 
-  canActivate(context: ExecutionContext) {
+  public canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest() as Request;
 
     // first check body if it contains gamemode

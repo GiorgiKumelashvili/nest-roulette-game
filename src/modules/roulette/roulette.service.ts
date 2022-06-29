@@ -15,7 +15,7 @@ export class RouletteService {
     private readonly rouletteRepository: RouletteRepository,
   ) {}
 
-  getBalance(request: Request, createRequest: CreateRequest) {
+  public getBalance(request: Request, createRequest: CreateRequest) {
     if (createRequest.gameMode === GameMode.TESTING) {
       return createRequest.balance || 0;
     }
@@ -26,7 +26,11 @@ export class RouletteService {
     return payload?.balance ? Number(payload.balance) : 0;
   }
 
-  async initializeSession(balance: number, userId: number, gameMode: GameMode) {
+  public async initializeSession(
+    balance: number,
+    userId: number,
+    gameMode: GameMode,
+  ) {
     const gameSession = await this.rouletteRepository.getGameSession(userId);
 
     if (gameSession) {
@@ -39,7 +43,7 @@ export class RouletteService {
     return null;
   }
 
-  async isBalanceChecked(spinRequest: SpinRequest) {
+  public async isBalanceChecked(spinRequest: SpinRequest) {
     const { userId, betInfo, gameMode } = spinRequest;
     const gameSession = await this.rouletteRepository.getGameSession(userId);
     if (!gameSession) throw new BadRequestException('gamesession not found');
@@ -84,7 +88,7 @@ export class RouletteService {
     console.log(gameSession.balance);
   }
 
-  async updateBalance(
+  public async updateBalance(
     spinRequest: SpinRequest,
     newBalance: number,
   ): Promise<User> {

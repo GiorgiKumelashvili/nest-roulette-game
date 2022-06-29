@@ -7,7 +7,11 @@ import { GameMode } from 'src/models/enums/game-mode.enum';
 export class RouletteRepository {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
-  initializeSession(balance: number, userId: number, gameMode: GameMode) {
+  public initializeSession(
+    balance: number,
+    userId: number,
+    gameMode: GameMode,
+  ) {
     const userGameEntity = new User({
       balance,
       userId,
@@ -21,15 +25,15 @@ export class RouletteRepository {
     return this.cacheManager.set(userId.toString(), userGameEntity);
   }
 
-  getGameSession(userId: number): Promise<User> {
+  public getGameSession(userId: number): Promise<User> {
     return this.cacheManager.get<User>(userId.toString());
   }
 
-  updateBalance(gameSession: User): Promise<User> {
+  public updateBalance(gameSession: User): Promise<User> {
     return this.cacheManager.set(gameSession.userId.toString(), gameSession);
   }
 
-  endSessions(userId: number): Promise<any> {
+  public endSessions(userId: number): Promise<any> {
     return this.cacheManager.del(userId.toString());
   }
 }

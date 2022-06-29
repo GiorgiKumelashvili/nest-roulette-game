@@ -16,6 +16,7 @@ export class User {
     this.userId = userId;
     this.gameMode = gameMode;
     this.balance = balance;
+
     // same as balance
     this.startBalance = balance;
   }

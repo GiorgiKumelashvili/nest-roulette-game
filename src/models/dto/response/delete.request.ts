@@ -1,4 +1,4 @@
-export interface DeleteResponse {
+export class DeleteResponse {
   startBalance: number;
   endBalance: number;
 }
