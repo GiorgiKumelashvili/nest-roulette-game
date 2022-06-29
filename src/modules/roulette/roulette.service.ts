@@ -99,7 +99,7 @@ export class RouletteService {
         : gameSession.balance + newBalance;
 
     gameSession.balance = newBalance;
-
-    return this.rouletteRepository.updateBalance(gameSession);
+    await this.rouletteRepository.updateBalance(gameSession);
+    return this.rouletteRepository.getGameSession(userId);
   }
 }
