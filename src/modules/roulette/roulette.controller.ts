@@ -30,12 +30,13 @@ export class RouletteController {
     const balance = this.rouletteService.getBalance(request, createRequest);
 
     // initialize session
-    await this.rouletteService.initializeSession(
+    const resp = await this.rouletteService.initializeSession(
       balance,
       createRequest.userId,
       createRequest.gameMode,
     );
 
+    if (resp) return { message: resp };
     return { message: 'user game initialized' };
   }
 

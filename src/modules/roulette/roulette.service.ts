@@ -23,8 +23,16 @@ export class RouletteService {
     return payload?.balance ? Number(payload.balance) : 0;
   }
 
-  initializeSession(balance: number, userId: number, gameMode: GameMode) {
+  async initializeSession(balance: number, userId: number, gameMode: GameMode) {
+    const gameSession = await this.rouletteRepository.getGameSession(userId);
+
+    if (gameSession) {
+      return 'session is already initialized';
+    }
+
     // initialize session inside redis
     this.rouletteRepository.initializeSession(balance, userId, gameMode);
+
+    return null;
   }
 }

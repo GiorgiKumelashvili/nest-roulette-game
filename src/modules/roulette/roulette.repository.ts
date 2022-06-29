@@ -20,4 +20,8 @@ export class RouletteRepository {
 
     return this.cacheManager.set(userId.toString(), userGameEntity);
   }
+
+  getGameSession(userId: number): Promise<User> {
+    return this.cacheManager.get<User>(userId.toString());
+  }
 }
