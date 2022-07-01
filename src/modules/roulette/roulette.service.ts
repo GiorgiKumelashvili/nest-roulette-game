@@ -15,7 +15,7 @@ export class RouletteService {
     private readonly rouletteRepository: RouletteRepository,
   ) {}
 
-  public getBalance(request: Request, createRequest: CreateRequest) {
+  public getBalance(request: Request, createRequest: CreateRequest): number {
     if (createRequest.gameMode === GameMode.TESTING) {
       return createRequest.balance || 0;
     }
@@ -62,10 +62,11 @@ export class RouletteService {
     // determine winnig
     const finalVal: Array<{ val: number; type: 'inc' | 'dec' }> = betInfo.map(
       (el) => {
-        if (
+        if (el.betType === winningNumber) {
+          return { type: 'inc', val: el.betAmount * 36 };
+        } else if (
           (el.betType === 'even' && winningNumber % 2 === 0) ||
-          (el.betType === 'odd' && winningNumber % 2 === 1) ||
-          el.betType === winningNumber
+          (el.betType === 'odd' && winningNumber % 2 === 1)
         ) {
           return { type: 'inc', val: el.betAmount * 2 };
         } else {

@@ -9,7 +9,7 @@ export interface UserProps {
 export class User {
   public userId: number;
   public gameMode: GameMode;
-  public startBalance: number;
+  private startBalance: number;
   public balance: number;
 
   constructor({ balance, gameMode, userId }: UserProps) {
